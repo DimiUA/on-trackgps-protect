@@ -1034,7 +1034,7 @@ App.onPageInit('asset.alarm', function (page) {
     var alarm = $$(page.container).find('input[name = "checkbox-alarm"]'); 
     var allCheckboxesLabel = $$(page.container).find('label.item-content');
     var allCheckboxes = allCheckboxesLabel.find('input');
-    var alarmFields = ['geolock','tilt','impact','power'];  
+    var alarmFields = ['geolock','tilt','impact','power','input','accOff','accOn'];
     
 
     alarm.on('change', function(e) { 
@@ -1226,7 +1226,7 @@ App.onPageInit('alarms.select', function (page) {
     var allCheckboxesLabel = $$(page.container).find('label.item-content');
     var allCheckboxes = allCheckboxesLabel.find('input');
     var assets = $$(page.container).find('input[name="Assets"]').val();
-    var alarmFields = ['geolock','tilt','impact','power'];     
+    var alarmFields = ['geolock','tilt','impact','power','input','accOff','accOn'];
 
     alarm.on('change', function(e) { 
         if( $$(this).prop('checked') ){
@@ -2248,6 +2248,18 @@ function loadPageAssetAlarm(){
         power: {
             state: true,
             val: 4,
+        },
+        input: {
+            state: true,
+            val: 131072,
+        },
+        accOff: {
+            state: true,
+            val: 65536,
+        },
+        accOn: {
+            state: true,
+            val: 32768,
         }
     };  
     if (assetAlarmVal) {
@@ -2256,7 +2268,7 @@ function loadPageAssetAlarm(){
                 alarms[key].state = false;
             }            
         });
-        if (assetAlarmVal == 17668) {
+        if (assetAlarmVal == 247044) {
             alarms.alarm.state = false;
         }
         
@@ -2269,7 +2281,10 @@ function loadPageAssetAlarm(){
             Geolock: alarms.geolock.state,
             Tilt: alarms.tilt.state,
             Impact: alarms.impact.state,                
-            Power: alarms.power.state,              
+            Power: alarms.power.state,     
+            Input: alarms.input.state,
+            AccOff: alarms.accOff.state,
+            AccOn: alarms.accOn.state,         
         }
     });
 }
@@ -2635,7 +2650,7 @@ function processClickOnPushNotification(msgJ){
         }
 
         //console.log(msg);
-        if( msg && msg.alarm == 'Status' || msg.alarm == 'status' ){            
+        if( msg && msg.alarm && msg.alarm.toLowerCase() == 'status' ){   
             loadStatusPage(msg);                               
         }else if (msg && parseFloat(msg.lat) && parseFloat(msg.lat) || msg && parseFloat(msg.Lat) && parseFloat(msg.Lat)) { 
             
