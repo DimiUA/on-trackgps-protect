@@ -172,7 +172,7 @@ Helper ={
 
             return latitude + " " + latitudeCardinal + "\n" + longitude + " " + longitudeCardinal;
     },
-   getDistance:function(lat1,lng1,lat2,lng2){
+    getDistance:function(lat1,lng1,lat2,lng2){
          var f = getRad((lat1 + lat2)/2);
         var g = getRad((lat1 - lat2)/2);
         var l = getRad((lng1 - lng2)/2);
@@ -199,7 +199,7 @@ Helper ={
          h2 = (3*r +1)/2/s;
          
          return d*(1 + fl*(h1*sf*(1-sg) - h2*(1-sf)*sg));
-   },
-   currentCreateLayer:null,
-   drawnItems:null   
+    },
+    currentCreateLayer:null,
+    drawnItems:null   
 };
